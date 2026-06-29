@@ -1,0 +1,37 @@
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.post('/api/insights', async (req, res) => {
+  console.log('📩 Request received!');
+  try {
+    const userMessage = req.body.messages[0].content;
+
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer GROQ_KEY_HERE'
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: userMessage }],
+        max_tokens: 1000
+      })
+    });
+
+    const data = await response.json();
+    console.log('✅ Groq responded!');
+    console.log('Groq data:', JSON.stringify(data).slice(0, 300));
+const text = data.choices?.[0]?.message?.content || data.choices?.[0]?.text || "Could not get insights.";
+    res.json({ content: [{ text }] });
+  } catch (err) {
+    console.error('❌ Error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(3001, () => console.log('✅ Proxy running on http://localhost:3001'));

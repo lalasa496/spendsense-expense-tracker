@@ -36,7 +36,7 @@ Give 3-4 specific, personalized insights:
 Keep it friendly, concise, and use emojis. Format each insight as a bullet point.`;
 
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("http://localhost:3001/api/insights", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -46,7 +46,8 @@ Keep it friendly, concise, and use emojis. Format each insight as a bullet point
         })
       });
       const data = await response.json();
-      const text = data.content?.map((b) => b.text || "").join("") || "Could not get insights.";
+      console.log('Frontend data:', data);
+const text = data.content?.map((b) => b.text || "").join("") || "Could not get insights.";
       setInsight(text);
     } catch (err) {
       setInsight("⚠️ Could not connect to AI. Please try again.");
