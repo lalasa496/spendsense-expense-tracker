@@ -36,7 +36,7 @@ Give 3-4 specific, personalized insights:
 Keep it friendly, concise, and use emojis. Format each insight as a bullet point.`;
 
     try {
-      const response = await fetch("http://localhost:3001/api/insights", {
+      const response = await fetch("https://spendsense-backend-tusn.onrender.com/api/insights", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
