@@ -5,7 +5,7 @@
 ## 🌐 Live Demo
 [View Live on Vercel](https://spendsense-expense-tracker-nine.vercel.app)
 
-> ⚠️ **Note on AI Insights:** The AI Financial Advisor feature calls a local Express proxy server (for API key security) and works fully when run locally. On the live Vercel link, this feature will show "Could not connect to AI" since the backend isn't deployed alongside it. **To see the AI feature live, please run the project locally** (see Installation below) — everything else (dashboard, charts, expense tracking, budget alerts) works fully on the live link.
+> ✅ **AI Insights are fully functional on the live demo!** The backend is deployed on Render and connected to the frontend automatically.
 
 ## 📸 Screenshots
 
@@ -17,6 +17,8 @@
 
 **AI Insights**
 ![AI Insights](screenshots/ai-insights.png)
+
+---
 
 ## 🚀 Features
 
@@ -38,7 +40,8 @@
 | Charts | Recharts |
 | Backend | Node.js + Express (proxy server) |
 | AI Integration | Groq API (LLaMA 3.3 70B) |
-| Deployment | Vercel (frontend) |
+| Frontend Deployment | Vercel |
+| Backend Deployment | Render |
 
 ---
 
@@ -88,27 +91,23 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 🚀 Deployment (Vercel)
+## 🚀 Deployment
 
-```bash
-npm install -g vercel
-vercel
-```
+- **Frontend** → Vercel: [https://spendsense-expense-tracker-nine.vercel.app](https://spendsense-expense-tracker-nine.vercel.app)
+- **Backend** → Render: [https://spendsense-backend-tusn.onrender.com](https://spendsense-backend-tusn.onrender.com)
 
-Note: only the frontend is deployed to Vercel. The Express backend (`server.js`) must be run locally or deployed separately (e.g. Render.com) for AI Insights to work on the live link.
+> Note: Render's free tier may take 30-50 seconds to wake up after inactivity on the first AI request.
 
 ---
 
 ## 🔑 AI Feature Setup
 
-The AI Insights feature uses the **Groq API** (free tier, no credit card required) via the local `server.js` proxy.
+The AI Insights feature uses the **Groq API** (free tier, no credit card required). The backend is deployed on Render and reads the API key securely from environment variables.
 
+To run locally:
 1. Get a free key at [console.groq.com](https://console.groq.com)
-2. Open `server.js` and paste your key into the `Authorization` header:
-```js
-'Authorization': 'Bearer YOUR_GROQ_API_KEY'
-```
-3. Run `node server.js` (see Installation above)
+2. Set it as an environment variable or paste it in `server.js`
+3. Run `node server.js`
 
 ---
 
